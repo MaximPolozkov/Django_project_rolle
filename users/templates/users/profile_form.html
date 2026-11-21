@@ -1,0 +1,32 @@
+{% extends "catalog/base.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    {% if object.avatar %}
+                        <img src="{{ object.avatar.url }}" alt="Аватар" class="rounded-circle" width="64" height="64" style="object-fit: cover;">
+                    {% else %}
+                        <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center fs-4" style="width: 64px; height: 64px;">
+                            {{ object.email|first|upper }}
+                        </div>
+                    {% endif %}
+                    <div>
+                        <h1 class="h4 mb-0">Профиль</h1>
+                        <span class="text-muted">{{ object.email }}</span>
+                    </div>
+                </div>
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {% include "catalog/includes/form_fields.html" %}
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
